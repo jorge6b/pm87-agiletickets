@@ -1,5 +1,7 @@
 package br.com.caelum.agiletickets.controllers;
 
+import static br.com.caelum.vraptor.view.Results.status;
+
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
@@ -14,7 +16,6 @@ import br.com.caelum.agiletickets.domain.Agenda;
 import br.com.caelum.agiletickets.domain.DiretorioDeEstabelecimentos;
 import br.com.caelum.agiletickets.domain.precos.CalculadoraDePrecos;
 import br.com.caelum.agiletickets.models.Espetaculo;
-import br.com.caelum.agiletickets.models.Estabelecimento;
 import br.com.caelum.agiletickets.models.Periodicidade;
 import br.com.caelum.agiletickets.models.Sessao;
 import br.com.caelum.vraptor.Controller;
@@ -26,8 +27,6 @@ import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 
 import com.google.common.base.Strings;
-
-import static br.com.caelum.vraptor.view.Results.status;
 
 @Controller
 public class EspetaculosController {
@@ -53,16 +52,12 @@ public class EspetaculosController {
 
 	@Get("/espetaculos")
 	public List<Espetaculo> lista() {
-		// inclui a lista de estabelecimentos
 		result.include("estabelecimentos", estabelecimentos.todos());
 		return agenda.espetaculos();
 	}
 
 	@Post("/espetaculos")
 	public void adiciona(Espetaculo espetaculo) {
-		// aqui eh onde fazemos as varias validacoes
-		// se nao tiver nome, avisa o usuario
-		// se nao tiver descricao, avisa o usuario
 		if (Strings.isNullOrEmpty(espetaculo.getNome())) {
 			validator.add(new SimpleMessage("", "Nome do espetáculo não pode estar em branco"));
 		}
@@ -86,8 +81,6 @@ public class EspetaculosController {
 	public void cadastraSessoes(Long espetaculoId, LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
 		Espetaculo espetaculo = carregaEspetaculo(espetaculoId);
 
-		// aqui faz a magica!
-		// cria sessoes baseado no periodo de inicio e fim passados pelo usuario
 		List<Sessao> sessoes = espetaculo.criaSessoes(inicio, fim, horario, periodicidade);
 
 		agenda.agende(sessoes);
@@ -122,7 +115,6 @@ public class EspetaculosController {
 			validator.add(new SimpleMessage("", "Não existem ingressos disponíveis"));
 		}
 
-		// em caso de erro, redireciona para a lista de sessao
 		validator.onErrorRedirectTo(this).sessao(sessao.getId());
 
 		BigDecimal precoTotal = CalculadoraDePrecos.calcula(sessao, quantidade);
@@ -142,5 +134,4 @@ public class EspetaculosController {
 		validator.onErrorUse(status()).notFound();
 		return espetaculo;
 	}
-	
 }
