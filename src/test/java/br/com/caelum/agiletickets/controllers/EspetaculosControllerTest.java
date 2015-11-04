@@ -1,5 +1,11 @@
 package br.com.caelum.agiletickets.controllers;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
+
 import java.math.BigDecimal;
 
 import org.junit.Before;
@@ -18,13 +24,6 @@ import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.util.test.MockValidator;
 import br.com.caelum.vraptor.validator.ValidationException;
 import br.com.caelum.vraptor.validator.Validator;
-import static org.hamcrest.Matchers.is;
-
-import static org.junit.Assert.assertThat;
-
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
-import static org.mockito.Mockito.when;
 
 public class EspetaculosControllerTest {
 

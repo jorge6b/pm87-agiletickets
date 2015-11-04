@@ -1,5 +1,8 @@
 package br.com.caelum.agiletickets.controllers;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -13,8 +16,6 @@ import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.util.test.MockValidator;
 import br.com.caelum.vraptor.validator.ValidationException;
 import br.com.caelum.vraptor.validator.Validator;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 public class EstabelecimentosControllerTest {
 
