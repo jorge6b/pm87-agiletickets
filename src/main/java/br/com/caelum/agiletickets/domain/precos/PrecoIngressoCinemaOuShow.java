@@ -10,7 +10,7 @@ public class PrecoIngressoCinemaOuShow implements PrecoIngresso {
 	public BigDecimal calcula(Sessao sessao) {
 		BigDecimal preco = sessao.getPreco();
 		if(sessao.getPercentualIngressosDisponiveis() <= 0.05) { 
-			preco = sessao.getPrecoComAgio(0.10);
+			preco = preco.add(sessao.getPrecoComAgio(BigDecimal.valueOf(0.10)));
 		} 
 		return preco;
 	}

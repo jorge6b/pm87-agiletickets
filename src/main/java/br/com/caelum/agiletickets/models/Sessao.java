@@ -109,9 +109,8 @@ public class Sessao {
 		return preco;
 	}
 	
-	public BigDecimal getPrecoComAgio(double agio) {
-		return this.getPreco().add(this.getPreco().multiply(BigDecimal.valueOf(agio))) ;
-		
+	public BigDecimal getPrecoComAgio(BigDecimal agio) {
+		return preco.multiply(agio);
 	}
 	
 	public double getPercentualIngressosDisponiveis() {
